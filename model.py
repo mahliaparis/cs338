@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
 from xgboost import XGBClassifier
 from sklearn.metrics import roc_auc_score, classification_report
 
@@ -36,6 +37,20 @@ model.fit(X_train, y_train)
 # Evaluate
 preds = model.predict(X_test)
 probs = model.predict_proba(X_test)[:, 1]
+
+cm = confusion_matrix(y_test, preds)
+tn, fp, fn, tp = cm.ravel()
+
+fpr = fp / (fp + tn)
+fnr = fn / (fn + tp)
+tpr = tp / (tp + fn)
+tnr = tn / (tn + fp)
+
+print("Confusion matrix:\n", cm)
+print(f"False Positive Rate (FPR): {fpr:.4f}")
+print(f"False Negative Rate (FNR): {fnr:.4f}")
+print(f"True Positive Rate (Recall): {tpr:.4f}")
+print(f"True Negative Rate (Specificity): {tnr:.4f}")
 
 print(classification_report(y_test, preds))
 print("ROC AUC:", roc_auc_score(y_test, probs))
