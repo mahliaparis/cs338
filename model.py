@@ -4,7 +4,10 @@ from xgboost import XGBClassifier
 from sklearn.metrics import roc_auc_score, classification_report
 
 # Load data
-df = pd.read_csv("cleaned_data.csv")
+df = pd.read_csv("cleaned_data.csv", sep="\t")
+
+print("Columns:", df.columns.tolist())
+print(df.head())
 
 # Split target vs features
 y = df["tag"]
@@ -16,17 +19,17 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # Build model
+pos_weight = (y_train == 0).sum() / (y_train == 1).sum()
 model = XGBClassifier(
-    n_estimators=200,
+    n_estimators=300,
     learning_rate=0.05,
     max_depth=4,
     subsample=0.8,
     colsample_bytree=0.8,
-    scale_pos_weight=(y_train.value_counts()[0] / y_train.value_counts()[1]),
+    scale_pos_weight=pos_weight,
     eval_metric="auc",
     random_state=42
 )
-
 # Train
 model.fit(X_train, y_train)
 
