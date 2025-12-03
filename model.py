@@ -5,10 +5,7 @@ from xgboost import XGBClassifier
 from sklearn.metrics import roc_auc_score, classification_report
 
 # Load data
-df = pd.read_csv("cleaned_data.csv", sep="\t")
-
-print("Columns:", df.columns.tolist())
-print(df.head())
+df = pd.read_csv("vitals_demo_transf_flags.csv", sep="\t")
 
 # Split target vs features
 y = df["tag"]
