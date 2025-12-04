@@ -1,0 +1,44 @@
+# .gitignore
+
+user_interface/.env
+user_interface/.env.local
+user_interface/.env.development.local
+user_interface/.env.test.local
+user_interface/.env.production.local
+
+user_interface/.env*
+
+user_interface/node_modules/
+user_interface/dist/
+user_interface/build/
+user_interface/.next/
+user_interface/out/
+
+# Logs
+user_interface/npm-debug.log*
+user_interface/yarn-debug.log*
+user_interface/yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+*.egg-info/
+
+# AWS
+*.pem
+*.key
